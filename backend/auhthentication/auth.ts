@@ -5,7 +5,7 @@ import { NextFunction, Request, Response, Router } from "express";
 const secretPass = "S3cret";
 const firstNameSchema = z.string().min(1);
 const lastNameSchema = z.string().min(1);
-const phoneNumberSchema = z.number().gte(10).lte(10).nonnegative();
+const phoneNumberSchema = z.string().min(10).max(10);
 const passwordSchema = z.string().min(8).max(20);
 const userNameSchema = z.string().min(6).max(40);
 
@@ -19,7 +19,7 @@ export function isvalidUserName(req: Request, res: Response , next:NextFunction)
         next();
     }catch(e)
     {
-        return res.status(500).json({message:"Internal server error", success:false})
+        return res.status(500).json({message:"Internal server error in username", success:false})
     }
 }
 
@@ -28,12 +28,12 @@ export function isvalidFirstName(req: Request, res: Response , next:NextFunction
         const result = firstNameSchema.safeParse(req.body.firstName);
         if(!result.success)
         {
-            return res.json({message:"invalid First Name", success:false})
+            return res.json({message:"invalid First Name ", success:false})
         }
         next();
     }catch(e)
     {
-        return res.status(500).json({message:"Internal server error", success:false})
+        return res.status(500).json({message:"Internal server error in first name", success:false})
     }
 }
 
@@ -47,7 +47,7 @@ export function isvalidLastName(req: Request, res: Response , next:NextFunction)
         next();
     }catch(e)
     {
-        return res.status(500).json({message:"Internal server error", success:false})
+        return res.status(500).json({message:"Internal server error in last name", success:false})
     }
 }
 
@@ -61,7 +61,7 @@ export function isvalidPhoneNumber(req: Request, res: Response , next:NextFuncti
         next();
     }catch(e)
     {
-        return res.status(500).json({message:"Internal server error", success:false})
+        return res.status(500).json({message:"Internal server error in valid phone number", success:false})
     }
 }
 
@@ -75,7 +75,7 @@ export function isvalidPassword(req: Request, res: Response , next:NextFunction)
         next();
     }catch(e)
     {
-        return res.status(500).json({message:"Internal server error", success:false})
+        return res.status(500).json({message:"Internal server error in valid password", success:false})
     }
 }
 

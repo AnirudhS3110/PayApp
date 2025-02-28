@@ -28,6 +28,7 @@ async function getHashedPass(pass:string): Promise<string>
 
 router.post('/signup',isvalidUserName, isvalidFirstName, isvalidLastName , isvalidPhoneNumber, isvalidPassword, async(req:Request<{},{},signupBody>, res:Response , next:NextFunction):Promise <any>=>{
   const {userName,firstName,lastName,phoneNumber,password} = req.body;
+  console.log("Came into signup router")
   
   try{
     const hashedPass = await getHashedPass(password);
